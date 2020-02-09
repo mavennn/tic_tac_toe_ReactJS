@@ -6,21 +6,15 @@ import Square from "../Square/Square";
 interface IBoardProps {
   squares: any;
   xIsNext: boolean;
-  onClick(i: number): void;
+  onSquareClick(i: number): void;
 }
 
 class Board extends React.Component<IBoardProps> {
-  constructor(props: IBoardProps) {
-    super(props);
-
-    this.state = {}
-  }
-
   renderSquare(i: number): JSX.Element{
     return (
       <Square
         value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
+        onClick={() => this.props.onSquareClick(i)}
       />
     );
   }

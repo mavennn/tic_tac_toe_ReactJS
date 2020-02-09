@@ -1,6 +1,6 @@
 import React from "react";
 
-import './Game.scss';
+import "./Game.scss";
 import Board from "../Board/Board";
 
 interface IStep {
@@ -29,8 +29,11 @@ class Game extends React.Component<IGameProps, IGameState> {
     };
   }
 
-  handleClick(i: number): void {
-    const history: IStep[] = this.state.history.slice(0, this.state.stepNumber + 1);
+  onSquareClick(i: number): void {
+    const history: IStep[] = this.state.history.slice(
+      0,
+      this.state.stepNumber + 1
+    );
     const current: IStep = history[this.state.stepNumber];
     const squares: string[] = current.squares.slice();
 
@@ -58,7 +61,7 @@ class Game extends React.Component<IGameProps, IGameState> {
   }
 
   render() {
-    const history: IStep[]= this.state.history;
+    const history: IStep[] = this.state.history;
     const current: IStep = history[this.state.stepNumber];
     const winner: string = calculateWinner(current.squares);
 
@@ -69,14 +72,16 @@ class Game extends React.Component<IGameProps, IGameState> {
       status = `Следующий ход: ${this.state.xIsNext ? "X" : "O"}`;
     }
 
-    const moves = history.map((step, move): JSX.Element => {
-      const desc: string = move ? "Перейти к ходу #" + move : "К началу игры";
-      return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
-        </li>
-      );
-    });
+    const moves = history.map(
+      (step, move): JSX.Element => {
+        const desc: string = move ? "Перейти к ходу #" + move : "К началу игры";
+        return (
+          <li key={move}>
+            <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          </li>
+        );
+      }
+    );
 
     return (
       <div className="game">
@@ -84,7 +89,7 @@ class Game extends React.Component<IGameProps, IGameState> {
           <Board
             squares={current.squares}
             xIsNext={this.state.xIsNext}
-            onClick={i => this.handleClick(i)}
+            onSquareClick={i => this.onSquareClick(i)}
           />
         </div>
         <div className="game-info">
